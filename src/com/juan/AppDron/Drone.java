@@ -9,7 +9,7 @@ public class Drone implements FlyingObject {
     private DronePosition position;
 
     public Drone(){
-        this.position = position.NORTH;
+        this.position = DronePosition.NORTH;
         this.posX = 0;
         this.posY = 0;
         this.mapDirection = 0;
@@ -18,48 +18,50 @@ public class Drone implements FlyingObject {
     @Override
     public void goStraight() {
         if(!isOutOfBounds()){
-            switch (this.mapDirection){
-                case -3:{
-                    this.position = DronePosition.EAST;
-                    this.posX++;
-                }
-                case -2:{
-                    this.position = DronePosition.SOUTH;
-                    this.posY--;
-                }
-                case -1:{
-                    this.position = DronePosition.WEST;
-                    this.posX--;
-                }
-                case 0:{
-                    this.position = DronePosition.NORTH;
-                    this.posY++;
-                }
-                case 1:{
-                    this.position = DronePosition.EAST;
-                    this.posX++;
-                }
-                case 2:{
-                    this.position = DronePosition.SOUTH;
-                    this.posY--;
-                }
-                case 3:{
-                    this.position = DronePosition.WEST;
-                    this.posX--;
-                }
-            }
+    		switch(this.position) {
+    			case NORTH:{
+    				this.posY++;
+    				break;
+    			}
+    			case SOUTH:{
+    				this.posY--;
+    				break;
+    			}
+    			case EAST:{
+    				this.posX++;
+    				break;
+    			}
+    			case WEST:{
+    				this.posX--;
+    				break;
+    			}
+    		}
         }
 
     }
 
     @Override
     public void turnRight() {
-        this.mapDirection = (isOutOfSpin())? 0 : this.mapDirection++;
+        //this.mapDirection = (isOutOfSpin())? 0 : this.mapDirection++;
+    	if(!isOutOfSpin()) {
+    		this.mapDirection++;
+    	}
+    	else {
+    		this.mapDirection = 0;
+    	}
+    	turnObject();
     }
 
     @Override
     public void turnLeft() {
-        this.mapDirection = (isOutOfSpin())? 0 : this.mapDirection--;
+        //this.mapDirection = (isOutOfSpin())? 0 : this.mapDirection--;
+    	if(!isOutOfSpin()) {
+    		this.mapDirection--;
+    	}
+    	else {
+    		this.mapDirection = 0;
+    	}
+    	turnObject();
 
     }
 
@@ -67,7 +69,60 @@ public class Drone implements FlyingObject {
         return (this.posX > BOUND_LIMIT || this.posY > BOUND_LIMIT);
     }
     private boolean isOutOfSpin(){
-        return (Math.abs(mapDirection) > SPIN_LIMIT);
+        return (Math.abs(mapDirection) >= SPIN_LIMIT);
+    }
+    @Override
+    public void restartPosition() {
+    	this.posX = 0;
+    	this.posY = 0;
+    	this.position = DronePosition.NORTH;
+    }
+    
+    @Override
+    public String toString() {
+    	return "(" + this.posX + ","+ this.posY +") " + this.position;
+    }
+    @Override
+    public void turnObject() {
+    	if(!isOutOfBounds()){
+            switch (this.mapDirection){
+                case -3:{
+                    this.position = DronePosition.EAST;
+                    
+                    break;
+                }
+                case -2:{
+                    this.position = DronePosition.SOUTH;
+                    
+                    break;
+                }
+                case -1:{
+                    this.position = DronePosition.WEST;
+                    
+                    break;
+                }
+                case 0:{
+                    this.position = DronePosition.NORTH;
+                    
+                    break;
+                }
+                case 1:{
+                    this.position = DronePosition.EAST;
+                    
+                    break;
+                }
+                case 2:{
+                    this.position = DronePosition.SOUTH;
+                    
+                    break;
+                }
+                case 3:{
+                    this.position = DronePosition.WEST;
+                    
+                    break;
+                }
+            }
+        }
     }
 
 

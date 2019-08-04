@@ -20,7 +20,7 @@ public class DocReader {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
             String line;
             while ((line = bufferedReader.readLine()) != null){
-                commands.add(line);
+                commands.add(line.toUpperCase());
             }
 
             bufferedReader.close();

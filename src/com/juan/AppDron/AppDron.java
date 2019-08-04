@@ -13,9 +13,13 @@ public class AppDron {
         System.out.println("Command file location: ");
         fileLocation = reader.next();
 
-        DocReader documentReader = new DocReader(fileLocation);
-
-
+        DocReader documentReader = new DocReader("C:\\Users\\JuanJoseGomez\\Desktop\\commands.txt");
+        
+        DroneController controller = new DroneController(documentReader.readFile(), drone);
+        DocWriter fileWriter = new DocWriter(controller.guideDrone());
+        fileWriter.writeFile();
+        
+    	reader.close();
 
 
     }
