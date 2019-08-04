@@ -76,6 +76,8 @@ public class Drone implements FlyingObject {
     	this.posX = 0;
     	this.posY = 0;
     	this.position = DronePosition.NORTH;
+    	this.mapDirection = 0;
+    	
     }
     
     @Override

@@ -6,6 +6,7 @@ public class DroneController {
     private static final char GO_STRAIGHT = 'A';
     private static final char TURN_LEFT = 'I';
     private static final char TURN_RIGHT = 'D';
+    
     private List<String> commands;
     private FlyingObject drone;
     private String finalPosition;
@@ -13,13 +14,15 @@ public class DroneController {
     public DroneController(List<String> commands, FlyingObject drone){
         this.commands = commands;
         this.drone = drone;
+        finalPosition = "";
     }
 
     public String guideDrone(){
         for(int j = 0; j < commands.size(); j++){
-        	//if(j % 3 == 0) {
-        	//	drone.restartPosition();
-        	//}
+        	if(j % 3 == 0) {
+        		drone.restartPosition();
+        		finalPosition += "Restarting position...\n";
+        	}
             for(int i = 0; i < commands.get(j).length(); i++){
             	char var = commands.get(j).charAt(i);
                 switch (var){
